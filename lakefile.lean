@@ -1,6 +1,7 @@
 import Lake
 open Lake DSL System
 
+
 package proofwidgets where
   preferReleaseBuild := true
   buildArchive? := "ProofWidgets4.tar.gz"

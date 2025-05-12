@@ -132,7 +132,7 @@ structure Element (f : Frame) where
   shape : Shape f
   strokeColor := (none : Option Color)
   strokeWidth := (none : Option (Size f))
-  fillColor   := (none : Option Color)
+  fillColor   := (none : Option String)
   id          := (none : Option String)
   data        := (none : Option Json)
   deriving ToJson, FromJson
@@ -141,7 +141,10 @@ def Element.setStroke {f} (elem : Element f) (color : Color) (width : Size f) :=
   { elem with strokeColor := some color, strokeWidth := some width }
 
 def Element.setFill {f} (elem : Element f) (color : Color) :=
-  { elem with fillColor := some color }
+  { elem with fillColor := some color.toStringRGB }
+
+def Element.setFillString {f} (elem : Element f) (color : String) :=
+  { elem with fillColor := some color}
 
 def Element.setId {f} (elem : Element f) (id : String) :=
   { elem with id := some id }
@@ -163,7 +166,7 @@ def Element.toHtml {f : Frame} (e : Element f) : Html := Id.run do
     args := args.push ("strokeWidth", width.toPixels)
 
   if let .some color := e.fillColor then
-    args := args.push ("fill", color.toStringRGB)
+    args := args.push ("fill", color)
   else
     args := args.push ("fill", "none")
 

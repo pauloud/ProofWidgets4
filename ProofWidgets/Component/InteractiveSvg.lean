@@ -59,6 +59,7 @@ structure InteractiveSvg (State : Type) where
          : State → State
   render (time_ms : Float) (mouseStart mouseEnd : Option (Svg.Point frame)) : State → Svg frame
 
+
 open Server RequestM Jsx in
 def InteractiveSvg.serverRpcMethod {State : Type} (isvg : InteractiveSvg State) (params : UpdateParams State)
   : RequestM (RequestTask (UpdateResult State)) := do
